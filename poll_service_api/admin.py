@@ -1,7 +1,7 @@
 from django.utils import timezone
 from django.contrib import admin
 
-from poll_sevice_api.models import Vote, Question, Variant
+from poll_service_api.models import Vote, Question, Variant
 
 
 class VoteAdmin(admin.ModelAdmin):
