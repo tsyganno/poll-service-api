@@ -38,7 +38,8 @@ class Question(models.Model):
 
 
 class Variant(models.Model):
-    question = models.ForeignKey('Question', null=True, on_delete=models.PROTECT, related_name='variants',  verbose_name='Вопрос')
+    question = models.ForeignKey('Question', null=True, on_delete=models.PROTECT, related_name='variants',
+                                 verbose_name='Вопрос')
     name_variant = models.CharField(max_length=50, verbose_name='Вариант')
 
     def __str__(self):
@@ -52,7 +53,8 @@ class Variant(models.Model):
 
 class Answer(models.Model):
     answer = models.CharField(max_length=50, verbose_name='Ответ пользователя')
-    question = models.ForeignKey('Question', null=True, on_delete=models.PROTECT, related_name='answers', verbose_name='Вопрос')
+    question = models.ForeignKey('Question', null=True, on_delete=models.PROTECT, related_name='answers',
+                                 verbose_name='Вопрос')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="answer", verbose_name='Пользователь')
 
     def __str__(self):

@@ -14,6 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='variant',
             name='question',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='variants', to='poll_service_api.Question', verbose_name='Вопрос'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='variants',
+                                    to='poll_service_api.Question', verbose_name='Вопрос'),
         ),
     ]

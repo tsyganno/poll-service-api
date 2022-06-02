@@ -1,8 +1,7 @@
 from rest_framework import serializers
-from django.forms.models import model_to_dict
 from django.contrib.auth.models import User
 
-from poll_service_api.models import Vote, Question, Variant, Answer
+from poll_service_api.models import Vote, Question, Answer
 
 
 class VoteSerializer(serializers.ModelSerializer):
@@ -41,7 +40,7 @@ class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         list_serializer_class = FilteredListSerializer
         model = Answer
-        fields = ['answer', 'question', 'user']
+        fields = ['id', 'answer', 'question', 'user']
         read_only_fields = ('user', 'question',)
 
 
@@ -51,3 +50,10 @@ class ResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = ['id', 'type_question', 'text', 'correct_answer', 'answers']
+
+
+class AnswerForDeleteSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Answer
+        fields = ['id', 'answer', 'question', 'user']
