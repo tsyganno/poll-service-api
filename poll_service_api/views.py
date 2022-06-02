@@ -1,5 +1,4 @@
-from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponseRedirect, HttpResponse
-from django.shortcuts import reverse
+from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse
 from django.utils import timezone
 from django.contrib.auth.models import User
 from poll_service_api.serializers import VoteSerializer, QuestionSerializer, AnswerSerializer, ResultSerializer, QuestionDetailSerializer
@@ -51,8 +50,6 @@ class AnswerCreateView(CreateAPIView, RetrieveAPIView):
         return AnswerSerializer
 
     def perform_create(self, serializer):
-        if not self.request.session['username']:
-            return HttpResponseRedirect(reverse('login'))
         value = self.request.session['username']
         num = User.objects.get(username=value)
         return serializer.save(user_id=num.pk, question_id=self.kwargs['question_pk'])
@@ -65,8 +62,6 @@ class ResultsListView(ListAPIView):
     serializer_class = ResultSerializer
 
     def get_queryset(self):
-        if not self.request.session['username']:
-            return HttpResponseRedirect(reverse('login'))
         value = self.request.session['username']
         num = User.objects.get(username=value)
         return Question.objects.filter(answers__user__id=num.pk).distinct()
@@ -76,15 +71,11 @@ class DeleteResultsListView(DestroyAPIView, ListAPIView):
     serializer_class = AnswerSerializer
 
     def get_object(self):
-        if not self.request.session['username']:
-            return HttpResponseRedirect(reverse('login'))
         value = self.request.session['username']
         num = User.objects.get(username=value)
         return Answer.objects.filter(user__id=num.pk).distinct()
 
     def get_queryset(self):
-        if not self.request.session['username']:
-            return HttpResponseRedirect(reverse('login'))
         value = self.request.session['username']
         num = User.objects.get(username=value)
         return Answer.objects.filter(user__id=num.pk).distinct()
